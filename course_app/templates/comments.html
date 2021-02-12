@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+</head>
+<body>
+    <a role="button" class="btn btn-secondary m-2" href="/">Home</a>
+    <div class="container-fluid p-5 justify-content-center">
+        <h1>{{ course.course_name }}</h1>
+        <p class="mt-5 lead font-weight-normal"><b>Description:</b> {{ course.desc.desc }}</p>
+    </div>
+
+    <div class="container">
+            <h1>Comments</h1>
+            {% for comment in course.comments.all %}
+               <blockquote class="blockquote">
+                  <p class="mb-0">{{ comment.content }}</p>
+                  <footer class="blockquote-footer">{{ comment.commentator }}</footer>
+               </blockquote>
+            {% endfor %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form action="/courses/comments/{{course.id}}/new_comment" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="content">Comments here:</label>
+                    <textarea class="form-control form-control-lg" name="content" type="textarea" id="content" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="commentator">Your name:</label>
+                    <input class="form-control form-control-lg" name="commentator" type="text"  id="commentator">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Add</button>
+            </form>
+        </div>
+
+    {% bootstrap_javascript jquery='full' %}
+</body>
+</html>

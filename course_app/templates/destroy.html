@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+</head>
+<body>
+
+    <div class="container-fluid p-5 justify-content-center">
+        <h1>Are you sure you want to delete the following course?</h1>
+            <p><b>Name:</b> {{ course.course_name }}</p>
+            <p><b>Description:</b> {{ course.desc.desc }}</p>
+        <div class="container">
+            <a role="button" class="btn btn-secondary m-2" href="/">No</a><a role="button" class="btn btn-danger m-2" href="/courses/destroy/{{ course.id }}/remove">Yes! I want to delete</a>
+        </div>
+    </div>
+
+
+    {% bootstrap_javascript jquery='full' %}
+</body>
+</html>
